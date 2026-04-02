@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Giulia's Website
+
+Personal website for a principal software engineer. Built with Next.js, Tailwind CSS, and markdown-based content management.
 
 ## Getting Started
 
-First, run the development server:
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+content/          # Markdown content (bio, blog, talks, projects)
+  bio.md          # Bio page content
+  blog/           # Blog posts (one .md per post)
+  talks/          # Talks (one .md per talk)
+  projects/       # Projects (one .md per project)
+src/
+  app/            # Next.js App Router pages
+  components/     # Shared UI components (Navbar, Footer, etc.)
+  lib/            # Utilities (content parser, etc.)
+```
 
-## Learn More
+## Adding Content
 
-To learn more about Next.js, take a look at the following resources:
+### Blog Post
+Create `content/blog/my-post.md`:
+```markdown
+---
+title: "My Post Title"
+date: "2026-04-02"
+excerpt: "Short description of the post."
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Your markdown content here.
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Talk
+Create `content/talks/talk-name.md`:
+```markdown
+---
+title: "Talk Title"
+event: "Conference Name"
+date: "2026-04-02"
+---
 
-## Deploy on Vercel
+Talk description here.
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Project
+Create `content/projects/project-name.md`:
+```markdown
+---
+title: "Project Name"
+date: "2026-04-02"
+description: "Short description."
+tech: ["TypeScript", "React"]
+github: "https://github.com/..."
+demo: "https://..."
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Project details here.
+```
+
+## Tech Stack
+
+- **Framework:** Next.js 16 (App Router)
+- **Styling:** Tailwind CSS v4 + shadcn/ui
+- **Content:** Markdown files parsed with gray-matter + remark
+- **Syntax highlighting:** rehype-highlight
+- **Deployment:** Vercel
+
+## Scripts
+
+```bash
+npm run dev    # Start development server
+npm run build  # Build for production
+npm start      # Start production server
+npm run lint   # Run ESLint
+```
