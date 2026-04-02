@@ -2,6 +2,7 @@
 title: "Am I the broken rung?"
 date: "2021-12-03"
 excerpt: "Reflections on bias, confidence, and the invisible barriers women face in tech."
+tags: ["women in tech", "diversity"]
 ---
 
 I am a python programmer, a software engineer and a woman. I am a woman in tech. For the first part of my career I never really thought that it was "a thing". I just liked computer science. I didn't really care about it when in high school I chose the programming path and it was just me and other 3 girls in a class of 20 people. I didn't care when I graduated in Computer Science and women were 10% of the class. It didn't even matter in the beginning of my first tech job. It started to matter when those small (and sometimes not-that-small) things happen to, I think, every woman in IT: harassment, impostor syndrome and those questions "is this person questioning my abilities because I am a woman?". I guess those questions arrive for everyone at some point.

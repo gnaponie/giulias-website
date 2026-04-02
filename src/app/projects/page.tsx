@@ -5,93 +5,72 @@ export const metadata = {
   description: "Selected projects and work by Giulia.",
 };
 
-const gradients = [
-  "from-accent-rose to-accent-amber",
-  "from-accent-cool to-accent-violet",
-  "from-accent-violet to-accent-rose",
-  "from-accent-amber to-accent-cool",
-];
-
 export default async function ProjectsListing() {
   const projects = await getAllContent("projects");
 
   if (projects.length === 0) {
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16 text-center">
-        <div className="text-5xl mb-4">🚀</div>
-        <h1 className="text-3xl font-semibold tracking-tight">Projects</h1>
-        <p className="mt-4 text-muted-foreground">
-          No projects yet. Check back soon!
-        </p>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16">
+        <h1 className="font-mono text-2xl font-bold">Projects</h1>
+        <p className="mt-4 text-muted-foreground">No projects yet.</p>
       </div>
     );
   }
 
+  // Assign grid sizes: first item large, then alternate medium/small
+  const getSpan = (i: number) => {
+    if (i === 0) return "sm:col-span-2 sm:row-span-2";
+    if (i % 3 === 0) return "sm:col-span-2";
+    return "";
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16">
-      <div className="mb-10">
-        <h1 className="text-3xl font-semibold tracking-tight">
-          <span className="bg-gradient-to-r from-accent-amber to-accent-cool bg-clip-text text-transparent">Projects</span>
-        </h1>
-        <p className="mt-2 text-muted-foreground">Things I've built and contributed to.</p>
-      </div>
-      <div className="grid gap-4">
+      <h1 className="font-mono text-2xl font-bold mb-8">Projects</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {projects.map((project, i) => {
-          const tech = Array.isArray(project.meta.tech) ? project.meta.tech as string[] : [];
+          const tech = Array.isArray(project.meta.tech) ? (project.meta.tech as string[]) : [];
           const github = typeof project.meta.github === "string" ? project.meta.github : null;
           const demo = typeof project.meta.demo === "string" ? project.meta.demo : null;
           const description = typeof project.meta.description === "string" ? project.meta.description : null;
+          const isLarge = i === 0;
 
           return (
             <div
               key={project.slug}
-              className="rounded-2xl border border-border bg-card overflow-hidden hover:shadow-lg transition-shadow"
+              className={`card-subtle rounded-lg p-5 flex flex-col ${getSpan(i)}`}
             >
-              <div className={`h-1.5 bg-gradient-to-r ${gradients[i % gradients.length]}`} />
-              <div className="p-6">
-                <h2 className="text-lg font-semibold">{project.meta.title as string}</h2>
-                {description && (
-                  <p className="mt-2 text-muted-foreground text-sm">
-                    {description}
-                  </p>
-                )}
-                {tech.length > 0 && (
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {tech.map((t) => (
-                      <span
-                        key={t}
-                        className="inline-flex items-center rounded-full bg-secondary px-2.5 py-0.5 text-xs font-medium text-secondary-foreground"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                )}
-                {(github || demo) && (
-                  <div className="mt-4 flex gap-4 text-sm">
-                    {github && (
-                      <a
-                        href={github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-muted-foreground hover:text-primary transition-colors font-medium"
-                      >
-                        GitHub ↗
-                      </a>
-                    )}
-                    {demo && (
-                      <a
-                        href={demo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-muted-foreground hover:text-primary transition-colors font-medium"
-                      >
-                        Live Demo ↗
-                      </a>
-                    )}
-                  </div>
-                )}
-              </div>
+              <h2 className={`font-mono font-semibold ${isLarge ? "text-xl" : "text-lg"}`}>
+                {project.meta.title as string}
+              </h2>
+              {description && (
+                <p className={`mt-2 text-muted-foreground ${isLarge ? "text-base" : "text-sm"}`}>
+                  {description}
+                </p>
+              )}
+              {tech.length > 0 && (
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {tech.map((t) => (
+                    <span key={t} className="text-xs font-mono text-accent-warm">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              )}
+              {(github || demo) && (
+                <div className="mt-auto pt-4 flex gap-4 text-sm font-mono">
+                  {github && (
+                    <a href={github} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                      GitHub →
+                    </a>
+                  )}
+                  {demo && (
+                    <a href={demo} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                      Demo →
+                    </a>
+                  )}
+                </div>
+              )}
             </div>
           );
         })}

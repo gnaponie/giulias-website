@@ -17,22 +17,22 @@ export function Navbar() {
   if (pathname === "/") return null;
 
   return (
-    <header className="border-b border-border bg-background/80 backdrop-blur-sm sticky top-0 z-50">
-      <nav className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-        <Link href="/" className="font-bold text-lg tracking-tight text-foreground hover:text-primary transition-colors">
+    <header className="border-b border-border bg-background sticky top-0 z-50">
+      <nav className="max-w-2xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+        <Link href="/" className="font-mono font-bold text-foreground hover:text-primary transition-colors">
           Giulia
         </Link>
 
         {/* Desktop nav */}
-        <ul className="hidden sm:flex gap-6 text-sm text-muted-foreground">
+        <ul className="hidden sm:flex gap-6 text-sm font-mono">
           {navItems.map((item) => (
             <li key={item.href}>
               <Link
                 href={item.href}
-                className={`transition-colors hover:text-foreground ${
+                className={`transition-colors hover:text-primary ${
                   pathname === item.href
-                    ? "text-foreground font-medium"
-                    : ""
+                    ? "text-primary"
+                    : "text-muted-foreground"
                 }`}
               >
                 {item.label}
@@ -74,15 +74,15 @@ export function Navbar() {
       {/* Mobile menu */}
       {open && (
         <div className="sm:hidden border-t border-border bg-background">
-          <ul className="max-w-4xl mx-auto px-4 py-3 flex flex-col gap-2 text-sm">
+          <ul className="max-w-2xl mx-auto px-4 py-3 flex flex-col gap-2 text-sm font-mono">
             {navItems.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className={`block py-2 transition-colors hover:text-foreground ${
+                  className={`block py-2 transition-colors hover:text-primary ${
                     pathname === item.href
-                      ? "text-foreground font-medium"
+                      ? "text-primary"
                       : "text-muted-foreground"
                   }`}
                 >

@@ -6,8 +6,8 @@ export default async function BioPage() {
 
   if (!bio) {
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16 text-center">
-        <h1 className="text-3xl font-semibold tracking-tight">Bio</h1>
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 py-16 text-center">
+        <h1 className="text-2xl font-mono font-bold">Bio</h1>
         <p className="mt-4 text-muted-foreground">
           Bio content is not available yet. Add a <code className="text-sm">content/bio.md</code> file to get started.
         </p>
@@ -16,38 +16,38 @@ export default async function BioPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
-      <div className="text-center mb-10">
-        <h1 className="text-4xl sm:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent-cool to-accent-amber bg-clip-text text-transparent">
+    <div className="max-w-2xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
+      <header className="mb-12">
+        <h1 className="font-mono text-2xl sm:text-3xl font-bold text-foreground">
           Giulia
         </h1>
-        <p className="mt-1 text-muted-foreground">Principal Software Engineer @ Red Hat</p>
-      </div>
+        <p className="mt-1 text-muted-foreground">
+          Principal Software Engineer @ Red Hat
+        </p>
+      </header>
 
-      <div className="rounded-2xl border border-border bg-card p-6 sm:p-8">
-        <div
-          className="prose prose-zinc dark:prose-invert max-w-none"
-          dangerouslySetInnerHTML={{ __html: bio.contentHtml }}
-        />
-      </div>
+      <div
+        className="prose prose-invert prose-zinc max-w-none
+          prose-a:text-primary prose-a:no-underline hover:prose-a:underline
+          prose-headings:font-mono prose-headings:text-foreground"
+        dangerouslySetInnerHTML={{ __html: bio.contentHtml }}
+      />
 
-      <div className="mt-12 grid sm:grid-cols-3 gap-4">
+      <nav className="mt-16 flex gap-6 text-sm">
         {[
-          { href: "/blog", emoji: "✍️", label: "Blog", desc: "Thoughts & learnings" },
-          { href: "/talks", emoji: "🎤", label: "Talks", desc: "Conferences & meetups" },
-          { href: "/projects", emoji: "🚀", label: "Projects", desc: "Things I've built" },
+          { href: "/blog", label: "Blog" },
+          { href: "/talks", label: "Talks" },
+          { href: "/projects", label: "Projects" },
         ].map((item) => (
           <Link
-            key={item.label}
+            key={item.href}
             href={item.href}
-            className="group rounded-2xl border border-border bg-card p-6 text-center hover:shadow-md hover:border-primary/40 transition-all"
+            className="text-primary hover:underline font-mono"
           >
-            <span className="text-3xl">{item.emoji}</span>
-            <h3 className="mt-2 font-semibold group-hover:text-primary transition-colors">{item.label}</h3>
-            <p className="text-sm text-muted-foreground">{item.desc}</p>
+            {item.label} →
           </Link>
         ))}
-      </div>
+      </nav>
     </div>
   );
 }

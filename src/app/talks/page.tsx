@@ -5,62 +5,45 @@ export const metadata = {
   description: "Presentations and talks given by Giulia.",
 };
 
-const gradients = [
-  "from-accent-rose to-accent-amber",
-  "from-accent-cool to-accent-violet",
-  "from-accent-violet to-accent-rose",
-  "from-accent-amber to-accent-cool",
-];
-
 export default async function TalksListing() {
   const talks = await getAllContent("talks");
 
   if (talks.length === 0) {
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16 text-center">
-        <div className="text-5xl mb-4">🎤</div>
-        <h1 className="text-3xl font-semibold tracking-tight">Talks</h1>
-        <p className="mt-4 text-muted-foreground">
-          No talks yet. Check back soon!
-        </p>
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 py-16">
+        <h1 className="font-mono text-2xl font-bold">Talks</h1>
+        <p className="mt-4 text-muted-foreground">No talks yet.</p>
       </div>
     );
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16">
-      <div className="mb-10">
-        <h1 className="text-3xl font-semibold tracking-tight">
-          <span className="bg-gradient-to-r from-accent-cool to-accent-violet bg-clip-text text-transparent">Talks</span>
-        </h1>
-        <p className="mt-2 text-muted-foreground">Conferences, meetups, and things I've presented.</p>
-      </div>
-      <div className="grid gap-4">
-        {talks.map((talk, i) => (
-          <div
-            key={talk.slug}
-            className="rounded-2xl border border-border bg-card overflow-hidden hover:shadow-lg transition-shadow"
-          >
-            <div className={`h-1.5 bg-gradient-to-r ${gradients[i % gradients.length]}`} />
-            <div className="p-6">
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex-1">
-                  <h2 className="text-lg font-semibold">{talk.meta.title as string}</h2>
-                  {typeof talk.meta.event === "string" && talk.meta.event && (
-                    <p className="mt-1 text-sm text-muted-foreground">{talk.meta.event}</p>
-                  )}
-                  {talk.meta.date && (
-                    <time className="mt-1 block text-xs text-muted-foreground">
-                      {new Date(talk.meta.date).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                      })}
-                    </time>
-                  )}
-                </div>
+    <div className="max-w-2xl mx-auto px-4 sm:px-6 py-16">
+      <h1 className="font-mono text-2xl font-bold mb-8">Talks</h1>
+      <div className="relative border-l-2 border-border pl-6 space-y-10">
+        {talks.map((talk) => (
+          <div key={talk.slug} className="relative">
+            <div className="absolute -left-[calc(1.5rem+5px)] top-1.5 w-2.5 h-2.5 rounded-full bg-primary border-2 border-background" />
+            <div>
+              <h2 className="font-mono text-lg font-semibold text-foreground">
+                {talk.meta.title as string}
+              </h2>
+              <div className="mt-1 flex items-center gap-3 text-sm text-muted-foreground font-mono">
+                {typeof talk.meta.event === "string" && talk.meta.event && (
+                  <span className="text-accent-warm">{talk.meta.event}</span>
+                )}
+                {talk.meta.date && (
+                  <time className="tabular-nums">
+                    {new Date(talk.meta.date).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "short",
+                    })}
+                  </time>
+                )}
               </div>
               <div
-                className="mt-4 prose prose-zinc dark:prose-invert prose-sm max-w-none"
+                className="mt-3 prose prose-invert prose-zinc prose-sm max-w-none
+                  prose-a:text-primary prose-headings:font-mono"
                 dangerouslySetInnerHTML={{ __html: talk.contentHtml }}
               />
             </div>

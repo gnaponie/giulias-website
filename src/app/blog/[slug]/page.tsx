@@ -32,20 +32,20 @@ export default async function BlogPost({
   if (!post) notFound();
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16">
+    <div className="max-w-2xl mx-auto px-4 sm:px-6 py-16">
       <Link
         href="/blog"
-        className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+        className="text-sm text-muted-foreground hover:text-primary transition-colors font-mono"
       >
-        &larr; Back to blog
+        ← Back
       </Link>
       <article className="mt-8">
         <header className="mb-8">
-          <h1 className="text-3xl font-semibold tracking-tight">
+          <h1 className="font-mono text-2xl sm:text-3xl font-bold">
             {String(post.meta.title)}
           </h1>
           {post.meta.date && (
-            <time className="mt-2 block text-sm text-muted-foreground">
+            <time className="mt-2 block text-sm text-muted-foreground font-mono">
               {new Date(post.meta.date).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "long",
@@ -55,7 +55,11 @@ export default async function BlogPost({
           )}
         </header>
         <div
-          className="prose prose-zinc dark:prose-invert max-w-none"
+          className="prose prose-invert prose-zinc max-w-none
+            prose-a:text-primary prose-a:no-underline hover:prose-a:underline
+            prose-headings:font-mono prose-headings:text-foreground
+            prose-code:text-accent-warm
+            [&>p]:mb-6 [&_ol]:![list-style-type:decimal] [&_ul]:![list-style-type:disc] [&_ol]:pl-6 [&_ul]:pl-6 [&_li]:mb-2"
           dangerouslySetInnerHTML={{ __html: post.contentHtml }}
         />
       </article>
