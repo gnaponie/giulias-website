@@ -27,22 +27,21 @@ export default async function BioPage() {
       </header>
 
       <div
-        className="prose prose-invert prose-zinc max-w-none
-          prose-a:text-primary prose-a:no-underline hover:prose-a:underline
+        className="prose prose-zinc dark:prose-invert max-w-none
           prose-headings:font-mono prose-headings:text-foreground"
         dangerouslySetInnerHTML={{ __html: bio.contentHtml }}
       />
 
-      <nav className="mt-16 flex gap-6 text-sm">
+      <nav className="mt-12 flex gap-8 text-lg">
         {[
           { href: "/blog", label: "Blog" },
-          { href: "/talks", label: "Talks" },
+          { href: "/videos", label: "Videos" },
           { href: "/projects", label: "Projects" },
         ].map((item) => (
           <Link
             key={item.href}
             href={item.href}
-            className="text-primary hover:underline font-mono"
+            className="text-primary hover:underline font-mono font-semibold"
           >
             {item.label} →
           </Link>

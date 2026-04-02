@@ -55,10 +55,10 @@ export default async function BlogPost({
           )}
         </header>
         <div
-          className="prose prose-invert prose-zinc max-w-none
-            prose-a:text-primary prose-a:no-underline hover:prose-a:underline
+          className="prose prose-zinc dark:prose-invert max-w-none
             prose-headings:font-mono prose-headings:text-foreground
-            prose-code:text-accent-warm
+            prose-code:text-accent-warm prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:font-mono
+            prose-pre:bg-muted prose-pre:border prose-pre:border-border prose-pre:rounded-lg
             [&>p]:mb-6 [&_ol]:![list-style-type:decimal] [&_ul]:![list-style-type:disc] [&_ol]:pl-6 [&_ul]:pl-6 [&_li]:mb-2"
           dangerouslySetInnerHTML={{ __html: post.contentHtml }}
         />
