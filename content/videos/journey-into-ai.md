@@ -3,6 +3,7 @@ title: "Journey into AI"
 event: "Life at Red Hat"
 date: "2024-06-01"
 tags: ["presentation"]
+language: "EN"
 youtube: "https://www.youtube.com/watch?v=Qt_VognhZD8"
 ---
 
