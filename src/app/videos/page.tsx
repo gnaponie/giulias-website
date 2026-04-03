@@ -7,18 +7,20 @@ export const metadata = {
 };
 
 export default async function VideosListing() {
-  const videos = await getAllContent("videos");
+  const videosEn = await getAllContent("videos", "en");
+  const videosIt = await getAllContent("videos", "it");
 
-  const serialized = videos.map((video) => ({
-    slug: video.slug,
-    title: video.meta.title as string,
-    event: typeof video.meta.event === "string" ? video.meta.event : null,
-    date: video.meta.date,
-    tags: Array.isArray(video.meta.tags) ? (video.meta.tags as string[]) : [],
-    language: typeof video.meta.language === "string" ? video.meta.language : null,
-    youtube: typeof video.meta.youtube === "string" ? video.meta.youtube : null,
-    contentHtml: video.contentHtml,
-  }));
+  const serialize = (videos: typeof videosEn) =>
+    videos.map((video) => ({
+      slug: video.slug,
+      title: video.meta.title as string,
+      event: typeof video.meta.event === "string" ? video.meta.event : null,
+      date: video.meta.date,
+      tags: Array.isArray(video.meta.tags) ? (video.meta.tags as string[]) : [],
+      language: typeof video.meta.language === "string" ? video.meta.language : null,
+      youtube: typeof video.meta.youtube === "string" ? video.meta.youtube : null,
+      contentHtml: video.contentHtml,
+    }));
 
-  return <VideosClient videos={serialized} />;
+  return <VideosClient videosEn={serialize(videosEn)} videosIt={serialize(videosIt)} />;
 }

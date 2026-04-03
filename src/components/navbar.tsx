@@ -4,16 +4,20 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { ThemeToggle } from "@/components/theme-toggle";
-
-const navItems = [
-  { href: "/blog", label: "Blog" },
-  { href: "/videos", label: "Videos" },
-  { href: "/projects", label: "Projects" },
-];
+import { LanguageToggle } from "@/components/language-toggle";
+import { useLanguage, t } from "@/lib/language";
 
 export function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const { lang } = useLanguage();
+  const s = t[lang];
+
+  const navItems = [
+    { href: "/blog", label: s.blog },
+    { href: "/videos", label: s.videos },
+    { href: "/projects", label: s.projects },
+  ];
 
   return (
     <header className="border-b border-border bg-background sticky top-0 z-50">
@@ -46,6 +50,7 @@ export function Navbar() {
         )}
 
         <div className="flex items-center gap-2">
+          <LanguageToggle />
           <ThemeToggle />
           {/* Mobile hamburger — hidden on home page */}
           {pathname !== "/" && (

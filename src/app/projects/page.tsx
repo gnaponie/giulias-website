@@ -1,4 +1,5 @@
 import { getAllContent } from "@/lib/content";
+import { ProjectsClient } from "./projects-client";
 
 export const metadata = {
   title: "Projects — Giulia",
@@ -35,22 +36,23 @@ async function getLatestCommits(
   }
 }
 
+interface SerializedProject {
+  slug: string;
+  title: string;
+  description: string | null;
+  github: string | null;
+  tech: string[];
+  size: string | null;
+  commits: GitHubCommit[];
+}
+
 export default async function ProjectsListing() {
-  const projects = await getAllContent("projects");
+  const projectsEn = await getAllContent("projects", "en");
+  const projectsIt = await getAllContent("projects", "it");
 
-  if (projects.length === 0) {
-    return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16">
-        <h1 className="font-mono text-2xl font-bold">Projects</h1>
-        <p className="mt-4 text-muted-foreground">No projects yet.</p>
-      </div>
-    );
-  }
-
-  // Fetch commits for all projects in parallel
   const commitsMap = new Map<string, GitHubCommit[]>();
   await Promise.all(
-    projects.map(async (project) => {
+    projectsEn.map(async (project) => {
       const github =
         typeof project.meta.github === "string" ? project.meta.github : null;
       if (!github) return;
@@ -60,112 +62,22 @@ export default async function ProjectsListing() {
     })
   );
 
-  const getSpan = (size: unknown) => {
-    if (size === "large") return "sm:col-span-2 sm:row-span-2";
-    if (size === "medium") return "sm:col-span-2";
-    return "";
-  };
+  const serialize = (projects: typeof projectsEn): SerializedProject[] =>
+    projects.map((p) => ({
+      slug: p.slug,
+      title: p.meta.title as string,
+      description:
+        typeof p.meta.description === "string" ? p.meta.description : null,
+      github: typeof p.meta.github === "string" ? p.meta.github : null,
+      tech: Array.isArray(p.meta.tech) ? (p.meta.tech as string[]) : [],
+      size: typeof p.meta.size === "string" ? p.meta.size : null,
+      commits: commitsMap.get(p.slug) ?? [],
+    }));
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16">
-      <h1 className="font-mono text-2xl font-bold mb-2">Projects</h1>
-      <p className="text-sm text-muted-foreground mb-8 font-mono">
-        Turns out, even in open source, not everything is... open. Here&apos;s what made the cut.
-      </p>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        {projects.map((project) => {
-          const tech = Array.isArray(project.meta.tech)
-            ? (project.meta.tech as string[])
-            : [];
-          const github =
-            typeof project.meta.github === "string"
-              ? project.meta.github
-              : null;
-          const description =
-            typeof project.meta.description === "string"
-              ? project.meta.description
-              : null;
-          const size = project.meta.size;
-          const isLarge = size === "large";
-          const commits = commitsMap.get(project.slug) ?? [];
-
-          return (
-            <div
-              key={project.slug}
-              className={`card-subtle rounded-lg p-5 flex flex-col ${getSpan(size)}`}
-            >
-              <h2
-                className={`font-mono font-semibold ${isLarge ? "text-xl" : "text-lg"}`}
-              >
-                {github ? (
-                  <a
-                    href={github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-foreground hover:text-primary transition-colors"
-                  >
-                    {project.meta.title as string}
-                  </a>
-                ) : (
-                  (project.meta.title as string)
-                )}
-              </h2>
-              {description && (
-                <p
-                  className={`mt-2 text-muted-foreground ${isLarge ? "text-base" : "text-sm"}`}
-                >
-                  {description}
-                </p>
-              )}
-              {tech.length > 0 && (
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {tech.map((t) => (
-                    <span
-                      key={t}
-                      className="text-xs font-mono text-accent-warm"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              )}
-              {commits.length > 0 && (
-                <div className="mt-3 space-y-1.5">
-                  <p className="text-xs font-mono text-muted-foreground">
-                    latest commits:
-                  </p>
-                  {commits.map((c) => (
-                    <a
-                      key={c.sha}
-                      href={c.html_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block text-xs font-mono text-muted-foreground hover:text-primary transition-colors truncate"
-                    >
-                      <span className="text-accent-warm">
-                        {c.sha.slice(0, 7)}
-                      </span>{" "}
-                      {c.commit.message.split("\n")[0]}
-                    </a>
-                  ))}
-                </div>
-              )}
-              {github && (
-                <div className="mt-auto pt-4 flex gap-4 text-sm font-mono">
-                  <a
-                    href={github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary hover:underline"
-                  >
-                    GitHub →
-                  </a>
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
-    </div>
+    <ProjectsClient
+      projectsEn={serialize(projectsEn)}
+      projectsIt={serialize(projectsIt)}
+    />
   );
 }

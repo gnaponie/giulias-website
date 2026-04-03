@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useLanguage, t } from "@/lib/language";
 
 interface Video {
   slug: string;
@@ -14,14 +15,17 @@ interface Video {
   contentHtml: string;
 }
 
-export function VideosClient({ videos }: { videos: Video[] }) {
+export function VideosClient({ videosEn, videosIt }: { videosEn: Video[]; videosIt: Video[] }) {
   const [langFilter, setLangFilter] = useState<string | null>(null);
+  const { lang: siteLang } = useLanguage();
+  const s = t[siteLang];
+  const videos = siteLang === "it" && videosIt.length > 0 ? videosIt : videosEn;
 
   if (videos.length === 0) {
     return (
       <div className="max-w-2xl mx-auto px-4 sm:px-6 py-16">
-        <h1 className="font-mono text-2xl font-bold">Videos</h1>
-        <p className="mt-4 text-muted-foreground">No videos yet.</p>
+        <h1 className="font-mono text-2xl font-bold">{s.videos}</h1>
+        <p className="mt-4 text-muted-foreground">{s.noVideos}</p>
       </div>
     );
   }
@@ -41,7 +45,7 @@ export function VideosClient({ videos }: { videos: Video[] }) {
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16">
-      <h1 className="font-mono text-2xl font-bold mb-8">Videos</h1>
+      <h1 className="font-mono text-2xl font-bold mb-8">{s.videos}</h1>
       <div className="flex flex-col sm:flex-row gap-10">
         {/* Videos timeline */}
         <div className="flex-1 min-w-0 relative border-l-2 border-border pl-6 space-y-10">
@@ -108,7 +112,7 @@ export function VideosClient({ videos }: { videos: Video[] }) {
         <aside className="sm:w-40 shrink-0 sm:border-l sm:border-border sm:pl-6">
           {langs.length > 0 && (
             <div className="mb-6">
-              <h2 className="font-mono text-sm font-semibold text-muted-foreground mb-3">Language</h2>
+              <h2 className="font-mono text-sm font-semibold text-muted-foreground mb-3">{s.language}</h2>
               <div className="flex flex-row gap-1.5">
               <button
                 onClick={() => setLangFilter(null)}
@@ -138,7 +142,7 @@ export function VideosClient({ videos }: { videos: Video[] }) {
           )}
           {tags.length > 0 && (
             <div>
-              <h2 className="font-mono text-sm font-semibold text-muted-foreground mb-3">Tags</h2>
+              <h2 className="font-mono text-sm font-semibold text-muted-foreground mb-3">{s.tags}</h2>
               <ul className="flex flex-row flex-wrap sm:flex-col gap-2">
                 {tags.map((tag) => (
                   <li key={tag}>
