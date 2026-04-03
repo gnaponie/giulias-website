@@ -13,7 +13,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Architecture
 
-Next.js 16 personal website (React 19, Tailwind CSS 4, TypeScript) with three content sections: blog, talks, and projects, plus a bio page.
+Next.js 16 personal website (React 19, Tailwind CSS 4, TypeScript) with content sections: blog, videos, and projects, plus a bio page.
 
 ### Content System
 
@@ -26,16 +26,16 @@ Markdown is rendered to HTML via `remark` + `remark-html` with `rehype-highlight
 
 Frontmatter fields vary by content type:
 - **Blog**: `title`, `date`, `excerpt`, `tags`
-- **Talks**: `title`, `date`, `event`
-- **Projects**: `title`, `date` (plus any extras)
+- **Videos**: `title`, `date`, `event`, `tags`, `language`, `youtube`
+- **Projects**: `title`, `date`, `description`, `tech`, `github`, `size`
 
 ### Routing
 
 App Router with these routes:
 - `/` — bio/home page (`content/bio.md`)
 - `/blog` — blog listing; `/blog/[slug]` — individual posts (uses `generateStaticParams`)
-- `/talks` — talks listing
-- `/projects` — projects listing
+- `/videos` — videos listing; `/videos/tag/[tag]` — filtered by tag
+- `/projects` — projects listing (fetches latest commits from GitHub API, cached 24h)
 
 ### Styling
 
@@ -43,4 +43,4 @@ Tailwind CSS 4 with `@tailwindcss/postcss`. UI primitives from shadcn (Base UI).
 
 ### Deployment
 
-`next.config.ts` uses `output: "standalone"`. A Dockerfile exists for containerized deployment.
+`next.config.ts` uses `output: "standalone"`. Deployed on Vercel via CLI (`npx vercel --prod`). A Dockerfile is also available for containerized deployment.
