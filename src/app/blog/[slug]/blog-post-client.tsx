@@ -47,10 +47,13 @@ export function BlogPostClient({
           )}
         </header>
         <div
-          className="prose prose-zinc dark:prose-invert max-w-none
-            prose-headings:font-mono prose-headings:text-foreground
-            prose-code:text-accent-warm prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:font-mono
-            prose-pre:bg-muted prose-pre:border prose-pre:border-border prose-pre:rounded-lg
+          className="max-w-none
+            [&_h1]:font-mono [&_h1]:text-xl [&_h1]:sm:text-2xl [&_h1]:font-bold [&_h1]:mt-10 [&_h1]:mb-4 [&_h1]:text-foreground
+            [&_h2]:font-mono [&_h2]:text-lg [&_h2]:sm:text-xl [&_h2]:font-bold [&_h2]:mt-8 [&_h2]:mb-3 [&_h2]:text-foreground
+            [&_h3]:font-mono [&_h3]:text-base [&_h3]:font-bold [&_h3]:mt-6 [&_h3]:mb-2 [&_h3]:text-foreground
+            [&_code]:text-accent-warm [&_code]:bg-muted [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-sm [&_code]:font-mono
+            [&_pre]:bg-muted [&_pre]:border [&_pre]:border-border [&_pre]:rounded-lg
+            [&_pre_code]:bg-transparent [&_pre_code]:p-0
             [&>p]:mb-6 [&_ol]:![list-style-type:decimal] [&_ul]:![list-style-type:disc] [&_ol]:pl-6 [&_ul]:pl-6 [&_li]:mb-2"
           dangerouslySetInnerHTML={{ __html: post.contentHtml }}
         />
