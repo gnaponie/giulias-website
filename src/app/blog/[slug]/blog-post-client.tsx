@@ -54,7 +54,11 @@ export function BlogPostClient({
             [&_code]:text-accent-warm [&_code]:bg-muted [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-sm [&_code]:font-mono
             [&_pre]:bg-muted [&_pre]:border [&_pre]:border-border [&_pre]:rounded-lg
             [&_pre_code]:bg-transparent [&_pre_code]:p-0
-            [&>p]:mb-6 [&_ol]:![list-style-type:decimal] [&_ul]:![list-style-type:disc] [&_ol]:pl-6 [&_ul]:pl-6 [&_li]:mb-2"
+            [&>p]:mb-6 [&_ol]:![list-style-type:decimal] [&_ul]:![list-style-type:disc] [&_ol]:pl-6 [&_ul]:pl-6 [&_li]:mb-2
+            [&_a]:text-accent-coral [&_a]:underline [&_a]:underline-offset-2 [&_a]:hover:text-primary [&_a]:transition-colors dark:[&_a]:text-accent-cool
+            [&_table]:w-full [&_table]:my-6 [&_table]:border-collapse [&_table]:text-sm
+            [&_th]:text-left [&_th]:font-bold [&_th]:border-b [&_th]:border-border [&_th]:py-2 [&_th]:px-3
+            [&_td]:border-b [&_td]:border-border [&_td]:py-2 [&_td]:px-3 [&_td]:align-top"
           dangerouslySetInnerHTML={{ __html: post.contentHtml }}
         />
       </article>

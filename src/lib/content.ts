@@ -3,6 +3,7 @@ import path from "path";
 import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
+import remarkGfm from "remark-gfm";
 import highlight from "rehype-highlight";
 import "highlight.js/styles/github-dark.css";
 
@@ -23,6 +24,7 @@ export interface ContentItem {
 
 async function processMarkdown(content: string): Promise<string> {
   const processed = await remark()
+    .use(remarkGfm)
     .use(html, { sanitize: false })
     .use(highlight)
     .process(content);
