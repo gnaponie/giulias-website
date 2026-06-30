@@ -58,3 +58,6 @@ Ho passato anni a imparare a scrivere script Python, script Bash, playbook Ansib
 È perfetto? No. L'AI fa ancora errori, ignora le istruzioni, allucina dettagli. Ma scrivere una skill markdown che gestisce l'80% di un task richiede trenta minuti. Scrivere uno script che gestisce il 100% potrebbe richiedere un giorno — e poi devi mantenerlo.
 
 Adesso scusatemi, devo andare a controllare se questo blog post sembra scritto da un umano o dalla skill di cui vi ho appena parlato. La risposta è entrambi, e penso che vada bene così.
+
+---
+*Questa traduzione è stata realizzata con l'aiuto dell'AI. Il contenuto originale è in inglese.*

@@ -114,3 +114,6 @@ Ha presentato bene. Pulito, preciso, niente fronzoli. Il tipo di talk che ti fa 
 Dopo due o tre settimane a scrivere questi blog post, devo ammettere che avevo sottovalutato questa conferenza. Quando sono partita da Bologna dopo quei primi due giorni, non ero sicura che ne fosse valsa la pena. Ma dopo qualche settimana a pensarci, scrivere questi post e rileggere i miei appunti — mi sono resa conto di quanti talk veramente belli ci fossero. E il fatto che alcune cose sugli agenti fossero troppo basic per me? Non è una critica alla conferenza. Significa solo che posso essere parte di chi dà forma a questo spazio, invece di limitarmi ad adottare quello che c'è già.
 
 PyCon Italia 2026, sei stata meglio di quanto mi aspettassi. Io e Python? Andiamo ancora forte.
+
+---
+*Questa traduzione è stata realizzata con l'aiuto dell'AI. Il contenuto originale è in inglese.*
